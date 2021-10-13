@@ -4,6 +4,8 @@ this case, since the name of the application is 'Todo', it could have sounded li
 something still incomplete
  */
 
+import 'package:droidconit_21_flutter_navigation_demo/login/email_verify_page.dart';
+import 'package:droidconit_21_flutter_navigation_demo/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -62,7 +64,12 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration>
         // TODO: Handle this case.
         break;
       case Sections.Login:
-        // TODO: Handle this case.
+        switch (pageConfig.uiPage) {
+          case Pages.Login_Form:
+            return _createPage(LoginPage(), pageConfig);
+          default:
+            return _createPage(EmailVerifyPage(), pageConfig);
+        }
         break;
       case Sections.Settings:
         // TODO: Handle this case.
