@@ -16,9 +16,10 @@ enum Sections {
 enum Pages {
   Splash,
   Home,
-  UserRegistration,
+  UserRegistration_AccountForm,
+  UserRegistration_UserDataForm,
+  UserRegistration_PaymentMethod,
   Login_Form,
-  Login_EmailVerify,
   Todo_List,
   Todo_Detail,
   Todo_Create,
@@ -38,12 +39,14 @@ const String SplashPath = '/splash';
 const String HomePath = '/home';
 
 // User Registration pages path
-const String UserRegistrationPath = '/registration';
+const String RegistrationPath = '/registration';
+const String AccountRegistrationPath = '/registration/account';
+const String UserDataRegistrationPath = '/registration/user';
+const String AddPaymentMethodPath = '/registration/payment';
 
 // Login pages path
-const String LoginPath = '/login/form';
+const String LoginPath = '/login';
 const String Login_FormPath = '/login/form';
-const String Login_EmailVerifyPath = '/login/verify';
 
 //Settings pages paths
 const String SettingsPath = '/settings';
@@ -130,21 +133,26 @@ const PageConfiguration Todos_CreatePageConfig = PageConfiguration(
     uiPage: Pages.Todo_Create);
 
 // UserRegistration pages config
-const PageConfiguration UserRegistration_PageConfig = PageConfiguration(
-    path: UserRegistrationPath,
+const PageConfiguration AccountRegistration_PageConfig = PageConfiguration(
+    path: AccountRegistrationPath,
     section: Sections.UserRegistration,
-    uiPage: Pages.UserRegistration);
+    uiPage: Pages.UserRegistration_AccountForm);
+
+const PageConfiguration UserDataRegistration_PageConfig = PageConfiguration(
+    path: UserDataRegistrationPath,
+    section: Sections.UserRegistration,
+    uiPage: Pages.UserRegistration_UserDataForm);
+
+const PageConfiguration AddPaymentMethod_PageConfig = PageConfiguration(
+    path: AddPaymentMethodPath,
+    section: Sections.UserRegistration,
+    uiPage: Pages.UserRegistration_PaymentMethod);
 
 // Login pages config
 const PageConfiguration Login_LoginFormConfig = PageConfiguration(
-    path: Login_FormPath,
+    path: LoginPath,
     section: Sections.Login,
     uiPage: Pages.Login_Form);
 
 
-const PageConfiguration Login_EmailVerifyConfig = PageConfiguration(
-    path: Login_EmailVerifyPath,
-    section: Sections.UserRegistration,
-    uiPage: Pages.Login_EmailVerify);
-  
 //#endregion

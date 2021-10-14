@@ -35,16 +35,18 @@ class ChargeCarRouteInformationParser
         switch (pagePath) {
           case Login_FormPath:
             return Login_LoginFormConfig;
-          case Login_EmailVerifyPath:
-            return Login_EmailVerifyConfig;
           default:
             return ErrorPageConfig;
         }
 
-      case UserRegistrationPath:
+      case RegistrationPath:
         switch (pagePath) {
-          case UserRegistrationPath:
-            return UserRegistration_PageConfig;
+          case AccountRegistrationPath:
+            return AccountRegistration_PageConfig;
+          case UserDataRegistrationPath:
+            return UserDataRegistration_PageConfig;
+          case AddPaymentMethodPath:
+            return AddPaymentMethod_PageConfig;
           default:
             return ErrorPageConfig;
         }
@@ -92,16 +94,18 @@ class ChargeCarRouteInformationParser
         switch (configuration.uiPage) {
           case Pages.Login_Form:
             return const RouteInformation(location: Login_FormPath);
-          case Pages.Login_EmailVerify:
-            return const RouteInformation(location: Login_EmailVerifyPath);
           default:
             return const RouteInformation(location: ErrorPath);
         }
 
       case Sections.UserRegistration:
         switch (configuration.uiPage) {
-          case Pages.UserRegistration:
-            return const RouteInformation(location: UserRegistrationPath);
+          case Pages.UserRegistration_AccountForm:
+            return const RouteInformation(location: AccountRegistrationPath);
+          case Pages.UserRegistration_UserDataForm:
+            return const RouteInformation(location: UserDataRegistrationPath);
+          case Pages.UserRegistration_PaymentMethod:
+            return const RouteInformation(location: AddPaymentMethodPath);
           default:
             return const RouteInformation(location: ErrorPath);
         }
