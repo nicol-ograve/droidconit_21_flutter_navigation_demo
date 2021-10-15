@@ -63,8 +63,6 @@ const String ErrorPath = '/error';
 
 //#endregion
 
-
-
 class PageConfiguration {
   final String path; // Must be unique
   final Sections section;
