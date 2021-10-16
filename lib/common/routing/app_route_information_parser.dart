@@ -33,7 +33,7 @@ class ChargeCarRouteInformationParser
 
       case LoginPath:
         switch (pagePath) {
-          case Login_FormPath:
+          case LoginFormPath:
             return Login_LoginFormConfig;
           default:
             return ErrorPageConfig;
@@ -42,11 +42,11 @@ class ChargeCarRouteInformationParser
       case RegistrationPath:
         switch (pagePath) {
           case AccountRegistrationPath:
-            return AccountRegistration_PageConfig;
+            return AccountRegistrationPageConfig;
           case UserDataRegistrationPath:
-            return UserDataRegistration_PageConfig;
+            return UserDataRegistrationPageConfig;
           case AddPaymentMethodPath:
-            return AddPaymentMethod_PageConfig;
+            return AddPaymentMethodPageConfig;
           default:
             return ErrorPageConfig;
         }
@@ -54,11 +54,16 @@ class ChargeCarRouteInformationParser
       case TodoPath:
         switch (pagePath) {
           case TodoPath:
-            return Todos_ListPageConfig;
-          case Todo_DetailPath:
-            return Todos_DetailPageConfig;
-          case Todo_CreatePath:
-            return Todos_CreatePageConfig;
+            return TodosListPageConfig;
+          case TodoDetailPath:
+            if (uri.pathSegments.length >= 3) {
+              return TodoDetailPageConfig(
+                  // In a production case, additional verifications are required
+                  todoId: int.parse(uri.pathSegments[2]));
+            }
+            return ErrorPageConfig;
+          case TodoCreatePath:
+            return TodosCreatePageConfig;
           default:
             return ErrorPageConfig;
         }
@@ -66,11 +71,11 @@ class ChargeCarRouteInformationParser
       case SettingsPath:
         switch (pagePath) {
           case SettingsPath:
-            return Settings_ListPageConfig;
-          case Settings_AccountPath:
-            return Settings_AccountPageConfig;
-          case Settings_ChangePasswordPath:
-            return Settings_ChangePasswordPageConfig;
+            return SettingsListPageConfig;
+          case SettingsAccountPath:
+            return SettingsAccountPageConfig;
+          case SettingsChangePasswordPath:
+            return SettingsChangePasswordPageConfig;
           default:
             return ErrorPageConfig;
         }
@@ -93,7 +98,7 @@ class ChargeCarRouteInformationParser
       case Sections.Login:
         switch (configuration.uiPage) {
           case Pages.Login_Form:
-            return const RouteInformation(location: Login_FormPath);
+            return const RouteInformation(location: LoginFormPath);
           default:
             return const RouteInformation(location: ErrorPath);
         }
@@ -110,37 +115,35 @@ class ChargeCarRouteInformationParser
             return const RouteInformation(location: ErrorPath);
         }
 
-      case Sections.Settings:
-        switch (configuration.uiPage) {
-          case Pages.Settings_List:
-            return const RouteInformation(
-                location: SettingsPath);
-          case Pages.Settings_Account:
-            return const RouteInformation(
-                location: Settings_AccountPath);
-          case Pages.Settings_ChangePassword:
-            return const RouteInformation(
-                location: Settings_ChangePasswordPath);
-          default:
-            return const RouteInformation(location: ErrorPath);
-        }
-
       case Sections.Todo:
         switch (configuration.uiPage) {
           case Pages.Todo_List:
-            return const RouteInformation(
-                location: TodoPath);
+            return const RouteInformation(location: TodoPath);
           case Pages.Todo_Create:
-            return const RouteInformation(
-                location: Todo_CreatePath);
+            return const RouteInformation(location: TodoCreatePath);
           case Pages.Todo_Detail:
-            return const RouteInformation(
-                location: Todo_DetailPath);
+            if (configuration is TodoDetailPageConfig) {
+              return RouteInformation(
+                  location: '$TodoDetailPath/${configuration.todoId}');
+            }
+            return const RouteInformation(location: ErrorPath);
           default:
             return const RouteInformation(location: ErrorPath);
         }
 
-    case Sections.Error:
+      case Sections.Settings:
+        switch (configuration.uiPage) {
+          case Pages.Settings_List:
+            return const RouteInformation(location: SettingsPath);
+          case Pages.Settings_Account:
+            return const RouteInformation(location: SettingsAccountPath);
+          case Pages.Settings_ChangePassword:
+            return const RouteInformation(location: SettingsChangePasswordPath);
+          default:
+            return const RouteInformation(location: ErrorPath);
+        }
+
+      case Sections.Error:
       default:
         return const RouteInformation(location: ErrorPath);
     }

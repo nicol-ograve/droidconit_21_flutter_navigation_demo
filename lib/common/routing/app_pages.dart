@@ -1,17 +1,6 @@
-
-
-
 //#region Sections and pages
 
-enum Sections {
-  Splash,
-  Home,
-  UserRegistration,
-  Login,
-  Settings,
-  Todo,
-  Error
-}
+enum Sections { Splash, Home, UserRegistration, Login, Settings, Todo, Error }
 
 enum Pages {
   Splash,
@@ -46,17 +35,17 @@ const String AddPaymentMethodPath = '/registration/payment';
 
 // Login pages path
 const String LoginPath = '/login';
-const String Login_FormPath = '/login/form';
+const String LoginFormPath = '/login/form';
 
 //Settings pages paths
 const String SettingsPath = '/settings';
-const String Settings_AccountPath = '/settings/account';
-const String Settings_ChangePasswordPath = '/settings/changePassword';
+const String SettingsAccountPath = '/settings/account';
+const String SettingsChangePasswordPath = '/settings/changePassword';
 
 //History pages path
 const String TodoPath = '/todo';
-const String Todo_DetailPath = '/todo/detail';
-const String Todo_CreatePath = '/todo/create';
+const String TodoDetailPath = '/todo/detail';
+const String TodoCreatePath = '/todo/create';
 
 // Error pages path
 const String ErrorPath = '/error';
@@ -69,9 +58,7 @@ class PageConfiguration {
   final Pages uiPage;
 
   const PageConfiguration(
-      {required this.path,
-      required this.section,
-      required this.uiPage});
+      {required this.path, required this.section, required this.uiPage});
 }
 
 //#endregion
@@ -80,77 +67,67 @@ class PageConfiguration {
 
 // Splash page
 const PageConfiguration SplashPageConfig = PageConfiguration(
-    path: SplashPath,
-    section: Sections.Splash,
-    uiPage: Pages.Splash);
+    path: SplashPath, section: Sections.Splash, uiPage: Pages.Splash);
 
 // Error pages config
 const PageConfiguration ErrorPageConfig = PageConfiguration(
-    path: ErrorPath,
-    section: Sections.Error,
-    uiPage: Pages.Error);
+    path: ErrorPath, section: Sections.Error, uiPage: Pages.Error);
 
 // Home pages config
 const PageConfiguration HomePageConfig = PageConfiguration(
-    path: HomePath,
-    section: Sections.Home,
-    uiPage: Pages.Home);
+    path: HomePath, section: Sections.Home, uiPage: Pages.Home);
 
 // Settings pages config
-
-const PageConfiguration Settings_ListPageConfig = PageConfiguration(
+const PageConfiguration SettingsListPageConfig = PageConfiguration(
     path: SettingsPath,
     section: Sections.Settings,
     uiPage: Pages.Settings_List);
 
-const PageConfiguration Settings_AccountPageConfig = PageConfiguration(
-    path: Settings_AccountPath,
+const PageConfiguration SettingsAccountPageConfig = PageConfiguration(
+    path: SettingsAccountPath,
     section: Sections.Settings,
     uiPage: Pages.Settings_Account);
 
-const PageConfiguration Settings_ChangePasswordPageConfig = PageConfiguration(
-    path: Settings_ChangePasswordPath,
+const PageConfiguration SettingsChangePasswordPageConfig = PageConfiguration(
+    path: SettingsChangePasswordPath,
     section: Sections.Settings,
     uiPage: Pages.Settings_ChangePassword);
 
 // Todos pages config
+const PageConfiguration TodosListPageConfig = PageConfiguration(
+    path: TodoPath, section: Sections.Todo, uiPage: Pages.Todo_List);
 
-const PageConfiguration Todos_ListPageConfig = PageConfiguration(
-    path: TodoPath,
-    section: Sections.Todo,
-    uiPage: Pages.Todo_List);
+const PageConfiguration TodosCreatePageConfig = PageConfiguration(
+    path: TodoCreatePath, section: Sections.Todo, uiPage: Pages.Todo_Create);
 
-const PageConfiguration Todos_DetailPageConfig = PageConfiguration(
-    path: Todo_DetailPath,
-    section: Sections.Todo,
-    uiPage: Pages.Todo_Detail);
-
-const PageConfiguration Todos_CreatePageConfig = PageConfiguration(
-    path: Todo_CreatePath,
-    section: Sections.Todo,
-    uiPage: Pages.Todo_Create);
+class TodoDetailPageConfig extends PageConfiguration {
+  final int todoId;
+  const TodoDetailPageConfig({required this.todoId})
+      : super(
+            path: TodoDetailPath,
+            section: Sections.Todo,
+            uiPage: Pages.Todo_Detail);
+}
 
 // UserRegistration pages config
-const PageConfiguration AccountRegistration_PageConfig = PageConfiguration(
+const PageConfiguration AccountRegistrationPageConfig = PageConfiguration(
     path: AccountRegistrationPath,
     section: Sections.UserRegistration,
     uiPage: Pages.UserRegistration_AccountForm);
 
-const PageConfiguration UserDataRegistration_PageConfig = PageConfiguration(
+const PageConfiguration UserDataRegistrationPageConfig = PageConfiguration(
     path: UserDataRegistrationPath,
     section: Sections.UserRegistration,
     uiPage: Pages.UserRegistration_UserDataForm);
 
-const PageConfiguration AddPaymentMethod_PageConfig = PageConfiguration(
+const PageConfiguration AddPaymentMethodPageConfig = PageConfiguration(
     path: AddPaymentMethodPath,
     section: Sections.UserRegistration,
     uiPage: Pages.UserRegistration_PaymentMethod);
 
 // Login pages config
 const PageConfiguration Login_LoginFormConfig = PageConfiguration(
-    path: LoginPath,
-    section: Sections.Login,
-    uiPage: Pages.Login_Form);
+    path: LoginPath, section: Sections.Login, uiPage: Pages.Login_Form);
 
 
 //#endregion
