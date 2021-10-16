@@ -11,25 +11,25 @@ abstract class RoutingEvent extends Equatable {
 class RoutePopped extends RoutingEvent {}
 
 class RoutePushed extends RoutingEvent {
-  final PageConfiguration pageConfiguration;
-  const RoutePushed({required this.pageConfiguration});
+  final PageConfiguration newPage;
+  const RoutePushed({required this.newPage});
 
   @override
-  List<Object?> get props => [pageConfiguration];
+  List<Object?> get props => [newPage];
 }
 
 class RouteReplaced extends RoutingEvent {
-  final PageConfiguration pageConfiguration;
-  const RouteReplaced({required this.pageConfiguration});
+  final PageConfiguration newPage;
+  const RouteReplaced({required this.newPage});
 
   @override
-  List<Object?> get props => [pageConfiguration];
+  List<Object?> get props => [newPage];
 }
 
-class RouteReplacedAll extends RoutingEvent {
-  final List<PageConfiguration> pageConfigurations;
-  const RouteReplacedAll({required this.pageConfigurations});
+class AllRoutesReplaced extends RoutingEvent {
+  final List<PageConfiguration> newPages;
+  const AllRoutesReplaced({required this.newPages});
 
   @override
-  List<Object?> get props => [pageConfigurations];
+  List<Object?> get props => [newPages];
 }
