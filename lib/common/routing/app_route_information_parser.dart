@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_pages.dart';
 
-class ChargeCarRouteInformationParser
+class AppRouteInformationParser
     extends RouteInformationParser<PageConfiguration> {
   @override
   Future<PageConfiguration> parseRouteInformation(

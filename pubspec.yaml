@@ -28,6 +28,7 @@ dependencies:
 
   flutter_bloc: ^7.0.0
   equatable: ^2.0.0
+  collection: ^1.15.0
 
 dev_dependencies:
   flutter_test:

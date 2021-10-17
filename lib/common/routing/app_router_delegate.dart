@@ -4,66 +4,71 @@ this case, since the name of the application is 'Todo', it could have sounded li
 something still incomplete
  */
 
+import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_bloc.dart';
+import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_event.dart';
+import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_state.dart';
+import 'package:droidconit_21_flutter_navigation_demo/common/routing/routes_configuration_parser.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app_pages.dart';
 
 class AppRouterDelegate extends RouterDelegate<PageConfiguration>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<PageConfiguration> {
-  @override
-  final GlobalKey<NavigatorState> navigatorKey;
-
   final List<Page> _pages = [];
 
-  List<MaterialPage> get pages => List.unmodifiable(_pages);
-
-  AppRouterDelegate() : navigatorKey = GlobalKey();
+  @override
+  final GlobalKey<NavigatorState> navigatorKey;
+  final RouteConfigurationParser configurationParser;
+  final RoutingBloc routingBloc;
+  AppRouterDelegate(
+      {required this.configurationParser, required this.routingBloc})
+      : navigatorKey = GlobalKey();
 
   @override
   Future<void> setNewRoutePath(PageConfiguration configuration) {
-    // TODO: implement setNewRoutePath
-    throw UnimplementedError();
+    // _pages.clear();
+    // _pages.add(configurationParser.pageFromConfig(configuration));
+    routingBloc.add(AllRoutesReplaced(newPages: [configuration]));
+    return SynchronousFuture(null);
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return BlocBuilder<RoutingBloc, RoutingState>(
+        builder: (BuildContext context, RoutingState state) => Navigator(
+              key: navigatorKey,
+              onPopPage: _onPopPage,
+              pages: state.pages,
+            ));
   }
-
-
-  bool _canPageBeAdded(PageConfiguration pageConfig) =>
-      _pages.isEmpty ||
-      (_pages.last.arguments as PageConfiguration).uiPage != pageConfig.uiPage;
-
 
   bool _onPopPage(Route<dynamic> route, result) {
     final didPop = route.didPop(result);
     if (!didPop) {
       return false;
     }
-    return tryPop();
-  }
-
-  void _removePage(Page? page) {
-    if (page != null) {
-      _pages.remove(page);
-    }
+    return _tryPop();
   }
 
   @override
   Future<bool> popRoute() {
-    return Future.value(tryPop());
+    return Future.value(_tryPop());
   }
 
   /// Try to remove the last page and returns true if the operation succeeded and false otherwise
-  bool tryPop() {
-    if (_pages.length < 2) {
+  bool _tryPop() {
+    if(routingBloc.canPop()){
+      routingBloc.add(RoutePopped());
+      return true;
+    /*if (_pages.length >= 2) {
+      _pages.removeLast();
+      return true;
+      */
+    } else {
       return false;
     }
-
-    _removePage(_pages.last);
-    return true;
   }
 }

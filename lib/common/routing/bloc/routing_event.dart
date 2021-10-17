@@ -8,6 +8,10 @@ abstract class RoutingEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+///
+/// Restore the state after the consumption of the event
+class RoutingReset extends RoutingEvent {}
+
 class RoutePopped extends RoutingEvent {}
 
 class RoutePushed extends RoutingEvent {
