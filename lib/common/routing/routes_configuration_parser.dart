@@ -49,7 +49,12 @@ class RouteConfigurationParser {
           case Pages.Todo_List:
             return _createPage(TodoListPage(), pageConfig);
           case Pages.Todo_Detail:
-            return _createPage(TodoDetailPage(), pageConfig);
+            if (pageConfig is TodoDetailPageConfig)
+              return _createPage(
+                  TodoDetailPage(todoId: pageConfig.todoId), pageConfig);
+            else
+              return _createPage(ErrorPage(), pageConfig);
+
           default:
             return _createPage(TodoCreatePage(), pageConfig);
         }

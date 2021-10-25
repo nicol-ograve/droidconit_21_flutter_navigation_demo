@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/app_pages.dart';
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_bloc.dart';
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_event.dart';
@@ -10,17 +12,14 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('Splash Page'),
-        MaterialButton(
-          child: Text('Go on'),
-          onPressed: () {
-          context
-              .read<RoutingBloc>()
-              .add(RouteReplaced(newPage: Login_LoginFormConfig));
-        })
-      ],
-    );
+    Timer(
+        Duration(seconds: 2),
+        () => context
+            .read<RoutingBloc>()
+            .add(RouteReplaced(newPage: Login_LoginFormConfig)));
+
+    return Scaffold(
+        appBar: AppBar(title: Text('Splash')),
+        body: Center(child: Text('Splash Page')));
   }
 }
