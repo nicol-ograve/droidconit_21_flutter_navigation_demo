@@ -7,7 +7,6 @@ something still incomplete
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_bloc.dart';
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_event.dart';
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_state.dart';
-import 'package:droidconit_21_flutter_navigation_demo/common/routing/routes_configuration_parser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,32 +16,22 @@ import 'app_pages.dart';
 
 class AppRouterDelegate extends RouterDelegate<PageConfiguration>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<PageConfiguration> {
-  final List<Page> _pages = [];
-
   @override
   final GlobalKey<NavigatorState> navigatorKey;
-  final RouteConfigurationParser configurationParser;
   final RoutingBloc routingBloc;
-  AppRouterDelegate(
-      {required this.configurationParser, required this.routingBloc})
-      : navigatorKey = GlobalKey();
 
-  @override
-  Future<void> setNewRoutePath(PageConfiguration configuration) {
-    // _pages.clear();
-    // _pages.add(configurationParser.pageFromConfig(configuration));
-    routingBloc.add(AllRoutesReplaced(newPages: [configuration]));
-    return SynchronousFuture(null);
-  }
+  AppRouterDelegate({required this.routingBloc}) : navigatorKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RoutingBloc, RoutingState>(
-        builder: (BuildContext context, RoutingState state) => Navigator(
-              key: navigatorKey,
-              onPopPage: _onPopPage,
-              pages: state.pages,
-            ));
+        builder: (BuildContext context, RoutingState state) {
+      return Navigator(
+        key: navigatorKey,
+        onPopPage: _onPopPage,
+        pages: state.pages,
+      );
+    });
   }
 
   bool _onPopPage(Route<dynamic> route, result) {
@@ -60,15 +49,17 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration>
 
   /// Try to remove the last page and returns true if the operation succeeded and false otherwise
   bool _tryPop() {
-    if(routingBloc.canPop()){
+    if (routingBloc.canPop()) {
       routingBloc.add(RoutePopped());
       return true;
-    /*if (_pages.length >= 2) {
-      _pages.removeLast();
-      return true;
-      */
-    } else {
+    }else {
       return false;
     }
+  }
+
+  @override
+  Future<void> setNewRoutePath(PageConfiguration configuration) {
+    routingBloc.add(AllRoutesReplaced(newPages: [configuration]));
+    return SynchronousFuture(null);
   }
 }

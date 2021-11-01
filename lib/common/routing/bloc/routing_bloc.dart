@@ -1,7 +1,7 @@
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/app_pages.dart';
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_event.dart';
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_state.dart';
-import 'package:droidconit_21_flutter_navigation_demo/common/routing/routes_configuration_parser.dart';
+import 'package:droidconit_21_flutter_navigation_demo/common/routing/page_from_config_parser.dart';
 import 'package:collection/collection.dart';
 
 import 'package:flutter/material.dart';
@@ -9,8 +9,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoutingBloc extends Bloc<RoutingEvent, RoutingState> {
-  final RouteConfigurationParser configurationParser;
-  RoutingBloc({required RouteConfigurationParser routeConfigurationParser})
+  final PageConfigurationParser configurationParser;
+
+  RoutingBloc({required PageConfigurationParser routeConfigurationParser})
       : this.configurationParser = routeConfigurationParser,
         super(RoutingState(pages: [
           routeConfigurationParser.pageFromConfig(SplashPageConfig)
@@ -29,7 +30,7 @@ class RoutingBloc extends Bloc<RoutingEvent, RoutingState> {
         yield RoutingState(
             pages: List<Page>.from(pages)
               ..add(configurationParser.pageFromConfig(event.newPage)));
-    } else if (event is RouteReplaced) {
+    } else if (event is LastRouteReplaced) {
       yield RoutingState(
           pages: pages.sublist(0, pages.length - 1)
             ..add(configurationParser.pageFromConfig(event.newPage)));

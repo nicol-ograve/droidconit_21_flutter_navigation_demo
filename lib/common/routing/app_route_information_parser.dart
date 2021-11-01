@@ -4,6 +4,7 @@ import 'app_pages.dart';
 
 class AppRouteInformationParser
     extends RouteInformationParser<PageConfiguration> {
+  
   @override
   Future<PageConfiguration> parseRouteInformation(
       RouteInformation routeInformation) async {
@@ -20,18 +21,12 @@ class AppRouteInformationParser
     // final queryParam = uri.queryParameters;
 
     final sectionPath = '/' + uri.pathSegments[0];
-    final pagePath = '/' + uri.pathSegments[0] + uri.pathSegments[1];
+    final pagePath = uri.pathSegments.length > 1
+        ? '/${uri.pathSegments[0]}/${uri.pathSegments[1]}'
+        : sectionPath;
 
     switch (sectionPath) {
-      case HomePath:
-        switch (pagePath) {
-          case HomePath:
-            return HomePageConfig;
-          default:
-            return ErrorPageConfig;
-        }
-
-      case LoginPath:
+      case LoginSectionPath:
         switch (pagePath) {
           case LoginFormPath:
             return Login_LoginFormConfig;
@@ -39,7 +34,7 @@ class AppRouteInformationParser
             return ErrorPageConfig;
         }
 
-      case RegistrationPath:
+      case RegistrationSectionPath:
         switch (pagePath) {
           case AccountRegistrationPath:
             return AccountRegistrationPageConfig;
@@ -51,9 +46,9 @@ class AppRouteInformationParser
             return ErrorPageConfig;
         }
 
-      case TodoPath:
+      case TodoSectionPath:
         switch (pagePath) {
-          case TodoPath:
+          case TodoSectionPath:
             return TodosListPageConfig;
           case TodoDetailPath:
             if (uri.pathSegments.length >= 3) {
@@ -68,14 +63,29 @@ class AppRouteInformationParser
             return ErrorPageConfig;
         }
 
-      case SettingsPath:
+      case SettingsSectionPath:
         switch (pagePath) {
-          case SettingsPath:
+          case SettingsSectionPath:
             return SettingsListPageConfig;
           case SettingsAccountPath:
             return SettingsAccountPageConfig;
           case SettingsChangePasswordPath:
             return SettingsChangePasswordPageConfig;
+          default:
+            return ErrorPageConfig;
+        }
+
+      case HomePath:
+        switch (pagePath) {
+          case HomePath:
+            return HomePageConfig;
+          default:
+            return ErrorPageConfig;
+        }
+      case SplashPath:
+        switch (pagePath) {
+          case SplashPath:
+            return SplashPageConfig;
           default:
             return ErrorPageConfig;
         }
@@ -118,7 +128,7 @@ class AppRouteInformationParser
       case Sections.Todo:
         switch (configuration.uiPage) {
           case Pages.Todo_List:
-            return const RouteInformation(location: TodoPath);
+            return const RouteInformation(location: TodoSectionPath);
           case Pages.Todo_Create:
             return const RouteInformation(location: TodoCreatePath);
           case Pages.Todo_Detail:
@@ -134,11 +144,19 @@ class AppRouteInformationParser
       case Sections.Settings:
         switch (configuration.uiPage) {
           case Pages.Settings_List:
-            return const RouteInformation(location: SettingsPath);
+            return const RouteInformation(location: SettingsSectionPath);
           case Pages.Settings_Account:
             return const RouteInformation(location: SettingsAccountPath);
           case Pages.Settings_ChangePassword:
             return const RouteInformation(location: SettingsChangePasswordPath);
+          default:
+            return const RouteInformation(location: ErrorPath);
+        }
+
+      case Sections.Splash:
+        switch (configuration.uiPage) {
+          case Pages.Splash:
+            return const RouteInformation(location: SplashPath);
           default:
             return const RouteInformation(location: ErrorPath);
         }

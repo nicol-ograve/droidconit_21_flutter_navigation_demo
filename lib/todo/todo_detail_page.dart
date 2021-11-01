@@ -28,7 +28,7 @@ class TodoDetailPage extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: todo.completed
-                            ? Colors.green[800]
+                            ? Colors.orange[800]
                             : Colors.red[800])),
               ],
             )));

@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
                       .add(RoutePushed(newPage: TodosListPageConfig));
                 },
                 child: Text('Login'),
-                color: Colors.green,
+                color: Colors.orange,
               ))
             ],
           )),

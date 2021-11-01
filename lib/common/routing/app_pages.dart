@@ -1,7 +1,5 @@
 //#region Sections and pages
 
-enum Sections { Splash, Home, UserRegistration, Login, Settings, Todo, Error }
-
 enum Pages {
   Splash,
   Home,
@@ -17,6 +15,8 @@ enum Pages {
   Settings_ChangePassword,
   Error
 }
+
+enum Sections { Splash, Home, UserRegistration, Login, Settings, Todo, Error }
 //#endregion
 
 //#region Paths list
@@ -28,24 +28,24 @@ const String SplashPath = '/splash';
 const String HomePath = '/home';
 
 // User Registration pages path
-const String RegistrationPath = '/registration';
-const String AccountRegistrationPath = '/registration/account';
-const String UserDataRegistrationPath = '/registration/user';
-const String AddPaymentMethodPath = '/registration/payment';
+const String RegistrationSectionPath = '/registration';
+const String AccountRegistrationPath = '$RegistrationSectionPath/account';
+const String UserDataRegistrationPath = '$RegistrationSectionPath/user';
+const String AddPaymentMethodPath = '$RegistrationSectionPath/payment';
 
 // Login pages path
-const String LoginPath = '/login';
-const String LoginFormPath = '/login/form';
+const String LoginSectionPath = '/login';
+const String LoginFormPath = '$LoginSectionPath/form';
 
 //Settings pages paths
-const String SettingsPath = '/settings';
-const String SettingsAccountPath = '/settings/account';
-const String SettingsChangePasswordPath = '/settings/changePassword';
+const String SettingsSectionPath = '/settings';
+const String SettingsAccountPath = '$SettingsSectionPath/account';
+const String SettingsChangePasswordPath = '/$SettingsSectionPath/changePassword';
 
 //History pages path
-const String TodoPath = '/todo';
-const String TodoDetailPath = '/todo/detail';
-const String TodoCreatePath = '/todo/create';
+const String TodoSectionPath = '/todo';
+const String TodoDetailPath = '$TodoSectionPath/detail';
+const String TodoCreatePath = '$TodoSectionPath/create';
 
 // Error pages path
 const String ErrorPath = '/error';
@@ -53,7 +53,7 @@ const String ErrorPath = '/error';
 //#endregion
 
 class PageConfiguration {
-  final String path; // Must be unique
+  final String path; // Must be unique because is used as a key
   final Sections section;
   final Pages uiPage;
 
@@ -78,8 +78,9 @@ const PageConfiguration HomePageConfig = PageConfiguration(
     path: HomePath, section: Sections.Home, uiPage: Pages.Home);
 
 // Settings pages config
+
 const PageConfiguration SettingsListPageConfig = PageConfiguration(
-    path: SettingsPath,
+    path: SettingsSectionPath,
     section: Sections.Settings,
     uiPage: Pages.Settings_List);
 
@@ -94,8 +95,9 @@ const PageConfiguration SettingsChangePasswordPageConfig = PageConfiguration(
     uiPage: Pages.Settings_ChangePassword);
 
 // Todos pages config
+
 const PageConfiguration TodosListPageConfig = PageConfiguration(
-    path: TodoPath, section: Sections.Todo, uiPage: Pages.Todo_List);
+    path: TodoSectionPath, section: Sections.Todo, uiPage: Pages.Todo_List);
 
 const PageConfiguration TodosCreatePageConfig = PageConfiguration(
     path: TodoCreatePath, section: Sections.Todo, uiPage: Pages.Todo_Create);
@@ -127,7 +129,7 @@ const PageConfiguration AddPaymentMethodPageConfig = PageConfiguration(
 
 // Login pages config
 const PageConfiguration Login_LoginFormConfig = PageConfiguration(
-    path: LoginPath, section: Sections.Login, uiPage: Pages.Login_Form);
+    path: LoginSectionPath, section: Sections.Login, uiPage: Pages.Login_Form);
 
 
 //#endregion

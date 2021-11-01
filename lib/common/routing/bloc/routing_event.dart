@@ -8,9 +8,6 @@ abstract class RoutingEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-///
-/// Restore the state after the consumption of the event
-class RoutingReset extends RoutingEvent {}
 
 class RoutePopped extends RoutingEvent {}
 
@@ -22,9 +19,9 @@ class RoutePushed extends RoutingEvent {
   List<Object?> get props => [newPage];
 }
 
-class RouteReplaced extends RoutingEvent {
+class LastRouteReplaced extends RoutingEvent {
   final PageConfiguration newPage;
-  const RouteReplaced({required this.newPage});
+  const LastRouteReplaced({required this.newPage});
 
   @override
   List<Object?> get props => [newPage];
@@ -37,3 +34,4 @@ class AllRoutesReplaced extends RoutingEvent {
   @override
   List<Object?> get props => [newPages];
 }
+

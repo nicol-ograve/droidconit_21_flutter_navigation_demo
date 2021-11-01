@@ -1,7 +1,6 @@
-import 'package:droidconit_21_flutter_navigation_demo/common/routing/app_pages.dart';
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/app_route_information_parser.dart';
 import 'package:droidconit_21_flutter_navigation_demo/common/routing/bloc/routing_bloc.dart';
-import 'package:droidconit_21_flutter_navigation_demo/common/routing/routes_configuration_parser.dart';
+import 'package:droidconit_21_flutter_navigation_demo/common/routing/page_from_config_parser.dart';
 import 'package:droidconit_21_flutter_navigation_demo/todo/cubit/todo_list_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(providers: [
       BlocProvider<RoutingBloc>(
           create: (context) => RoutingBloc(
-              routeConfigurationParser: RouteConfigurationParser())),
+              routeConfigurationParser: PageConfigurationParser())),
       BlocProvider<TodoListCubit>(create: (context) => TodoListCubit()),
     ], child: AppBuilder());
   }
@@ -40,8 +39,7 @@ class AppContent extends StatelessWidget {
 
   AppContent({Key? key, required RoutingBloc routingBloc}) : super(key: key) {
     _routerDelegate = AppRouterDelegate(
-        routingBloc: routingBloc,
-        configurationParser: RouteConfigurationParser());
+        routingBloc: routingBloc);
     //_routerDelegate.setNewRoutePath(SplashPageConfig);
   }
 

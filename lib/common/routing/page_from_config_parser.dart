@@ -4,6 +4,7 @@ import 'package:droidconit_21_flutter_navigation_demo/home/home_page.dart';
 import 'package:droidconit_21_flutter_navigation_demo/login/login_page.dart';
 import 'package:droidconit_21_flutter_navigation_demo/registration/account_registration_page.dart';
 import 'package:droidconit_21_flutter_navigation_demo/registration/add_payment_method_page.dart';
+import 'package:droidconit_21_flutter_navigation_demo/registration/registration_section.dart';
 import 'package:droidconit_21_flutter_navigation_demo/registration/user_data_registration_form.dart';
 import 'package:droidconit_21_flutter_navigation_demo/settings/account_page.dart';
 import 'package:droidconit_21_flutter_navigation_demo/settings/change_password_page.dart';
@@ -17,7 +18,7 @@ import 'package:flutter/widgets.dart';
 
 ///
 /// Class responsible for the conversion of PageConfigurations into MaterialPages
-class RouteConfigurationParser {
+class PageConfigurationParser {
   Page pageFromConfig(PageConfiguration pageConfig) {
     switch (pageConfig.section) {
       case Sections.Splash:
@@ -27,7 +28,7 @@ class RouteConfigurationParser {
       case Sections.UserRegistration:
         switch (pageConfig.uiPage) {
           case Pages.UserRegistration_AccountForm:
-            return _createPage(AccountRegistrationPage(), pageConfig);
+            return _createPage(RegistrationSection(), pageConfig);
           case Pages.UserRegistration_UserDataForm:
             return _createPage(UserDataRegistrationPage(), pageConfig);
           default:
@@ -67,7 +68,6 @@ class RouteConfigurationParser {
     return MaterialPage(
         child: child,
         key: ValueKey(pageConfig.path),
-        name: pageConfig.path,
-        arguments: pageConfig);
+        name: pageConfig.path);
   }
 }
