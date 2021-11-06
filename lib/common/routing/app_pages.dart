@@ -22,7 +22,7 @@ enum Sections { Splash, Home, UserRegistration, Login, Settings, Todo, Error }
 //#region Paths list
 
 // Splash page path
-const String SplashPath = '/splash';
+const String SplashPath = '/';
 
 // Home pages path
 const String HomePath = '/home';

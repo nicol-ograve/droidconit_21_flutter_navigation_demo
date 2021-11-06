@@ -16,22 +16,19 @@ import 'app_pages.dart';
 
 class AppRouterDelegate extends RouterDelegate<PageConfiguration>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<PageConfiguration> {
-  @override
-  final GlobalKey<NavigatorState> navigatorKey;
+  final navigatorKey = GlobalKey<NavigatorState>();
   final RoutingBloc routingBloc;
 
-  AppRouterDelegate({required this.routingBloc}) : navigatorKey = GlobalKey();
+  AppRouterDelegate({required this.routingBloc});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RoutingBloc, RoutingState>(
-        builder: (BuildContext context, RoutingState state) {
-      return Navigator(
-        key: navigatorKey,
-        onPopPage: _onPopPage,
-        pages: state.pages,
-      );
-    });
+    return BlocListener<RoutingBloc, RoutingState>(
+        listener: (context, state) => notifyListeners(),
+        child: Navigator(
+            key: navigatorKey,
+            onPopPage: _onPopPage,
+            pages: routingBloc.state.pages));
   }
 
   bool _onPopPage(Route<dynamic> route, result) {
@@ -52,7 +49,7 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration>
     if (routingBloc.canPop()) {
       routingBloc.add(RoutePopped());
       return true;
-    }else {
+    } else {
       return false;
     }
   }
@@ -62,4 +59,8 @@ class AppRouterDelegate extends RouterDelegate<PageConfiguration>
     routingBloc.add(AllRoutesReplaced(newPages: [configuration]));
     return SynchronousFuture(null);
   }
+
+  @override
+  PageConfiguration? get currentConfiguration =>
+      routingBloc.state.pages.last.arguments as PageConfiguration;
 }

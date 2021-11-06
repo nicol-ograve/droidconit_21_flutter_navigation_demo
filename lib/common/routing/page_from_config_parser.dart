@@ -2,7 +2,6 @@ import 'package:droidconit_21_flutter_navigation_demo/common/routing/app_pages.d
 import 'package:droidconit_21_flutter_navigation_demo/common/error_page.dart';
 import 'package:droidconit_21_flutter_navigation_demo/home/home_page.dart';
 import 'package:droidconit_21_flutter_navigation_demo/login/login_page.dart';
-import 'package:droidconit_21_flutter_navigation_demo/registration/account_registration_page.dart';
 import 'package:droidconit_21_flutter_navigation_demo/registration/add_payment_method_page.dart';
 import 'package:droidconit_21_flutter_navigation_demo/registration/registration_section.dart';
 import 'package:droidconit_21_flutter_navigation_demo/registration/user_data_registration_form.dart';
@@ -68,6 +67,7 @@ class PageConfigurationParser {
     return MaterialPage(
         child: child,
         key: ValueKey(pageConfig.path),
+        arguments: pageConfig,
         name: pageConfig.path);
   }
 }
