@@ -4,7 +4,7 @@ import 'app_pages.dart';
 
 class AppRouteInformationParser
     extends RouteInformationParser<PageConfiguration> {
-  
+      
   @override
   Future<PageConfiguration> parseRouteInformation(
       RouteInformation routeInformation) async {
@@ -97,73 +97,6 @@ class AppRouteInformationParser
 
   @override
   RouteInformation restoreRouteInformation(PageConfiguration configuration) {
-    switch (configuration.section) {
-      case Sections.Home:
-        switch (configuration.uiPage) {
-          case Pages.Home:
-            return const RouteInformation(location: HomePath);
-          default:
-            return const RouteInformation(location: ErrorPath);
-        }
-      case Sections.Login:
-        switch (configuration.uiPage) {
-          case Pages.Login_Form:
-            return const RouteInformation(location: LoginFormPath);
-          default:
-            return const RouteInformation(location: ErrorPath);
-        }
-
-      case Sections.UserRegistration:
-        switch (configuration.uiPage) {
-          case Pages.UserRegistration_AccountForm:
-            return const RouteInformation(location: AccountRegistrationPath);
-          case Pages.UserRegistration_UserDataForm:
-            return const RouteInformation(location: UserDataRegistrationPath);
-          case Pages.UserRegistration_PaymentMethod:
-            return const RouteInformation(location: AddPaymentMethodPath);
-          default:
-            return const RouteInformation(location: ErrorPath);
-        }
-
-      case Sections.Todo:
-        switch (configuration.uiPage) {
-          case Pages.Todo_List:
-            return const RouteInformation(location: TodoSectionPath);
-          case Pages.Todo_Create:
-            return const RouteInformation(location: TodoCreatePath);
-          case Pages.Todo_Detail:
-            if (configuration is TodoDetailPageConfig) {
-              return RouteInformation(
-                  location: '$TodoDetailPath/${configuration.todoId}');
-            }
-            return const RouteInformation(location: ErrorPath);
-          default:
-            return const RouteInformation(location: ErrorPath);
-        }
-
-      case Sections.Settings:
-        switch (configuration.uiPage) {
-          case Pages.Settings_List:
-            return const RouteInformation(location: SettingsSectionPath);
-          case Pages.Settings_Account:
-            return const RouteInformation(location: SettingsAccountPath);
-          case Pages.Settings_ChangePassword:
-            return const RouteInformation(location: SettingsChangePasswordPath);
-          default:
-            return const RouteInformation(location: ErrorPath);
-        }
-
-      case Sections.Splash:
-        switch (configuration.uiPage) {
-          case Pages.Splash:
-            return const RouteInformation(location: SplashPath);
-          default:
-            return const RouteInformation(location: ErrorPath);
-        }
-
-      case Sections.Error:
-      default:
-        return const RouteInformation(location: ErrorPath);
-    }
+    return RouteInformation(location: configuration.routeLocation);
   }
 }

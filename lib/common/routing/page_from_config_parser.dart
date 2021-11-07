@@ -67,7 +67,7 @@ class PageConfigurationParser {
     return MaterialPage(
         child: child,
         key: ValueKey(pageConfig.path),
-        arguments: pageConfig,
-        name: pageConfig.path);
+        name: pageConfig.path,
+        arguments: pageConfig);
   }
 }

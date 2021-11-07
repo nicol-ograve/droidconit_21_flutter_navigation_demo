@@ -1,5 +1,7 @@
 //#region Sections and pages
 
+enum Sections { Splash, Home, UserRegistration, Login, Settings, Todo, Error }
+
 enum Pages {
   Splash,
   Home,
@@ -16,7 +18,6 @@ enum Pages {
   Error
 }
 
-enum Sections { Splash, Home, UserRegistration, Login, Settings, Todo, Error }
 //#endregion
 
 //#region Paths list
@@ -59,6 +60,8 @@ class PageConfiguration {
 
   const PageConfiguration(
       {required this.path, required this.section, required this.uiPage});
+
+  String get routeLocation => this.path;
 }
 
 //#endregion
@@ -109,6 +112,8 @@ class TodoDetailPageConfig extends PageConfiguration {
             path: TodoDetailPath,
             section: Sections.Todo,
             uiPage: Pages.Todo_Detail);
+
+  String get routeLocation => '$path/$todoId';
 }
 
 // UserRegistration pages config
